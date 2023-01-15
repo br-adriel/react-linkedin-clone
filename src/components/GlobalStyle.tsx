@@ -12,6 +12,14 @@ const GlobalStyle = createGlobalStyle`
     width: 100%;
     min-height: 100vh;
   }
+
+  a {
+    text-decoration: none;
+    
+    :hover {
+      text-decoration: underline;
+    }
+  }
 `;
 
 export default GlobalStyle;
