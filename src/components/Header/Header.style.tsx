@@ -11,6 +11,7 @@ export const HeaderTag = styled.header`
   align-items: center;
   border: 1px solid #eee;
   z-index: 999;
+  background: #fff;
 `;
 
 export const Container = styled(Container1128px)`
