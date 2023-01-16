@@ -7,12 +7,20 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     font-family: 'System-ui', sans-serif;
   }
+  
+  body {
+    background: #F3F2EF;
+  }
 
   #root {
     width: 100%;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: left;
   }
-
+  
   a {
     text-decoration: none;
     
@@ -20,6 +28,6 @@ const GlobalStyle = createGlobalStyle`
       text-decoration: underline;
     }
   }
-`;
+  `;
 
 export default GlobalStyle;
