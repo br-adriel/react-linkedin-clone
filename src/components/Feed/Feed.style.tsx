@@ -3,13 +3,38 @@ import styled from 'styled-components';
 export const Wrapper = styled.div`
   flex: 0.5;
   margin: 0 20px;
+
+  > button {
+    width: 100%;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    margin: 8px 0;
+    border: none;
+    background: none;
+    gap: 4px;
+    font-size: 12px;
+    color: #00000099;
+    cursor: pointer;
+
+    hr {
+      flex-grow: 1;
+    }
+
+    span {
+      color: #000000;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+    }
+  }
 `;
 
 export const InputContainer = styled.div`
   background-color: #fff;
   padding: 10px;
+  padding-bottom: 6px;
   border-radius: 10px;
-  margin-bottom: 15px;
   border: 1px solid #ddd;
 
   > div:first-of-type {
