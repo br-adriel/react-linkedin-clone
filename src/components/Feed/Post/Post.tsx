@@ -5,9 +5,9 @@ import InputOption from '../InputOption';
 import * as S from './Post.style';
 
 type Props = {
-  name?: string;
-  description?: string;
-  message?: string;
+  name: string;
+  description: string;
+  message: string;
   photoUrl?: string;
 };
 
@@ -22,16 +22,12 @@ const Post: React.FC<Props> = ({ description, message, name, photoUrl }) => {
           />
         </S.Avatar>
         <S.Info>
-          <h2>Name Lastname</h2>
-          <p>Lorem ipsum dolor sit amet</p>
+          <h2>{name}</h2>
+          <p>{description}</p>
         </S.Info>
       </S.Header>
       <S.Body>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea
-          laboriosam optio, enim quod tempore aspernatur quo pariatur quia.
-          Vero, commodi.
-        </p>
+        <p>{message}</p>
       </S.Body>
 
       <S.Buttons>
