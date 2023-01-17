@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import AppBody from './components/AppBody';
+import Feed from './components/Feed';
 import GlobalStyle from './components/GlobalStyle';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
@@ -15,6 +16,7 @@ function App() {
       <Header />
       <AppBody>
         <Sidebar />
+        <Feed />
       </AppBody>
     </>
   );
