@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.aside`
-  height: 100%;
-  flex: 0.22;
+  flex: 0.2;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -85,7 +84,7 @@ export const SidebarStat = styled.a`
 
 export const SidebarBottom = styled.div`
   position: sticky;
-  top: 80px;
+  top: 70px;
   border-radius: 10px;
   background: #fff;
   padding: 12px 0;
