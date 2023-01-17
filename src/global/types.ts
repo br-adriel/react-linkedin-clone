@@ -1,6 +1,8 @@
 export type PostType = {
-  name?: string;
-  description?: string;
-  message?: string;
+  id: string;
+  name: string;
+  description: string;
+  message: string;
   photoUrl?: string;
+  timestamp: string;
 };
