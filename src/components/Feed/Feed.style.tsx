@@ -10,6 +10,7 @@ export const InputContainer = styled.div`
   padding: 10px;
   border-radius: 10px;
   margin-bottom: 15px;
+  border: 1px solid #ddd;
 
   > div:first-of-type {
     width: 100%;
