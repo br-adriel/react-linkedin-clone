@@ -1,24 +1,24 @@
 import { FirebaseError } from 'firebase/app';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
-import { Link, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import AuthFooter from '../../components/AuthFooter';
 import AuthHeader from '../../components/AuthHeader';
 import { auth } from '../../services/firebase';
-import store from '../../store';
+import store, { RootState } from '../../store';
 import * as S from './SignUp.style';
 
 const SignUp = () => {
   const navigate = useNavigate();
-
   const signUpToApp = async (e: any) => {
     e.preventDefault();
 
     const defaultProfile =
       'https://firebasestorage.googleapis.com/v0/b/linkedin-clone-e99cf.appspot.com/o/default_profile.jpg?alt=media&token=c5bdeb48-b789-42f0-9958-3e890475b672';
 
-    const email = e.target['email'].value;
-    const name = e.target['name'].value;
-    const photoUrl = e.target['image'].value;
+    const email = e.target['email'].value.trim();
+    const name = e.target['name'].value.trim();
+    const photoUrl = e.target['image'].value.trim();
     const password = e.target['password'].value;
     const password2 = e.target['password2'].value;
     if (password !== password2) {
@@ -32,18 +32,19 @@ const SignUp = () => {
         password
       );
       const user = userCredential.user;
-      await updateProfile(user, {
+      updateProfile(user, {
         displayName: name,
         photoURL: photoUrl ? photoUrl : defaultProfile,
-      });
-      store.dispatch({
-        type: 'user/login',
-        payload: {
-          displayName: user.displayName,
-          email: user.displayName,
-          photoUrl: user.photoURL,
-          uid: user.uid,
-        },
+      }).then(() => {
+        store.dispatch({
+          type: 'user/login',
+          payload: {
+            displayName: user.displayName,
+            email: user.displayName,
+            photoUrl: user.photoURL,
+            uid: user.uid,
+          },
+        });
       });
 
       navigate('/');
@@ -55,6 +56,9 @@ const SignUp = () => {
       }
     }
   };
+
+  const { user } = useSelector((state: RootState) => state.user);
+  if (user) return <Navigate to='/' />;
   return (
     <S.Wrapper>
       <AuthHeader />
