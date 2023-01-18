@@ -1,12 +1,42 @@
-import { Link } from 'react-router-dom';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { useSelector } from 'react-redux';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import AuthFooter from '../../components/AuthFooter';
 import AuthHeader from '../../components/AuthHeader';
+import { auth } from '../../services/firebase';
+import store, { RootState } from '../../store';
 import * as S from './Login.style';
 
 const Login = () => {
-  const loginToApp = (e: any) => {
+  const navigate = useNavigate();
+
+  const loginToApp = async (e: any) => {
     e.preventDefault();
+
+    const email = e.target['email'].value;
+    const password = e.target['password'].value;
+
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    const user = userCredential.user;
+    store.dispatch({
+      type: 'user/login',
+      payload: {
+        displayName: user.displayName,
+        email: user.displayName,
+        photoUrl: user.photoURL,
+        uid: user.uid,
+      },
+    });
+
+    navigate('/');
   };
+
+  const { user } = useSelector((state: RootState) => state.user);
+  if (user) return <Navigate to='/' />;
   return (
     <S.Wrapper>
       <AuthHeader />
@@ -14,8 +44,13 @@ const Login = () => {
         <h1>Entrar</h1>
         <p>Acompanhe as novidades do seu mundo profissional</p>
         <form onSubmit={loginToApp}>
-          <input type='email' name='email' placeholder='E-mail ou telefone' />
-          <input type='password' name='senha' placeholder='Senha' />
+          <input type='email' name='email' placeholder='E-mail' />
+          <input
+            type='password'
+            name='password'
+            placeholder='Senha'
+            minLength={8}
+          />
           <a href='#'>Esqueceu a senha?</a>
           <button type='submit'>Entrar</button>
         </form>
