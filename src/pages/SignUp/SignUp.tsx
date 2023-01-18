@@ -1,11 +1,59 @@
-import { Link } from 'react-router-dom';
+import { FirebaseError } from 'firebase/app';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { Link, useNavigate } from 'react-router-dom';
 import AuthFooter from '../../components/AuthFooter';
 import AuthHeader from '../../components/AuthHeader';
+import { auth } from '../../services/firebase';
+import store from '../../store';
 import * as S from './SignUp.style';
 
 const SignUp = () => {
-  const signUpToApp = (e: any) => {
+  const navigate = useNavigate();
+
+  const signUpToApp = async (e: any) => {
     e.preventDefault();
+
+    const defaultProfile =
+      'https://firebasestorage.googleapis.com/v0/b/linkedin-clone-e99cf.appspot.com/o/default_profile.jpg?alt=media&token=c5bdeb48-b789-42f0-9958-3e890475b672';
+
+    const email = e.target['email'].value;
+    const name = e.target['name'].value;
+    const photoUrl = e.target['image'].value;
+    const password = e.target['password'].value;
+    const password2 = e.target['password2'].value;
+    if (password !== password2) {
+      alert('As senhas não são iguais');
+      return;
+    }
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+      await updateProfile(user, {
+        displayName: name,
+        photoURL: photoUrl ? photoUrl : defaultProfile,
+      });
+      store.dispatch({
+        type: 'user/login',
+        payload: {
+          displayName: user.displayName,
+          email: user.displayName,
+          photoUrl: user.photoURL,
+          uid: user.uid,
+        },
+      });
+
+      navigate('/');
+    } catch (error: unknown) {
+      if ((error as FirebaseError).code === 'auth/email-already-in-use') {
+        alert('O email já está vinculado a uma conta');
+      } else {
+        alert('Um erro ocorreu');
+      }
+    }
   };
   return (
     <S.Wrapper>
@@ -14,8 +62,27 @@ const SignUp = () => {
         <h1>Cadastre-se</h1>
         <p>Aproveite sua vida profissional ao máximo</p>
         <form onSubmit={signUpToApp}>
-          <input type='email' name='email' placeholder='E-mail ou telefone' />
-          <input type='password' name='senha' placeholder='Senha' />
+          <input type='email' name='email' placeholder='E-mail' required />
+          <input type='text' name='name' placeholder='Nome completo' required />
+          <input
+            type='url'
+            name='image'
+            placeholder='URL da imagem de perfil'
+          />
+          <input
+            type='password'
+            name='password'
+            placeholder='Senha'
+            required
+            minLength={8}
+          />
+          <input
+            type='password'
+            name='password2'
+            placeholder='Confirmação de senha'
+            required
+            minLength={8}
+          />
           <button type='submit'>Cadastre-se</button>
         </form>
       </S.Card>
