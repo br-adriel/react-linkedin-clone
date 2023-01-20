@@ -6,11 +6,12 @@ type Props = {
   Icon?: IconType;
   title: string;
   avatar?: string;
+  onClick?: Function;
 };
 
-const HeaderOption: React.FC<Props> = ({ Icon, title, avatar }) => {
+const HeaderOption: React.FC<Props> = ({ Icon, title, avatar, onClick }) => {
   return (
-    <S.Wrapper>
+    <S.Wrapper onClick={() => !!onClick && onClick()}>
       {Icon && (
         <S.IconWrapper>
           <Icon />

@@ -1,12 +1,22 @@
+import { BsBellFill, BsBriefcaseFill } from 'react-icons/bs';
 import { FaUserFriends } from 'react-icons/fa';
 import { IoMdSearch } from 'react-icons/io';
 import { IoHome } from 'react-icons/io5';
-import { BsBellFill, BsBriefcaseFill } from 'react-icons/bs';
 import { RiMessage2Fill } from 'react-icons/ri';
+import { useDispatch } from 'react-redux';
+import { auth } from '../../services/firebase';
+import { logout } from '../../store/user/userSlice';
 import * as S from './Header.style';
 import HeaderOption from './HeaderOption';
 
 const Header = () => {
+  const dispatch = useDispatch();
+
+  const logoutApp = () => {
+    dispatch(logout());
+    auth.signOut();
+  };
+
   return (
     <S.HeaderTag>
       <S.Container>
@@ -38,6 +48,7 @@ const Header = () => {
           <HeaderOption
             title='Eu'
             avatar='https://www.svgrepo.com/show/404551/avatar-man-profile-user-5.svg'
+            onClick={logoutApp}
           />
         </S.HeaderRight>
       </S.Container>
