@@ -4,6 +4,7 @@ import AppBody from '../components/AppBody';
 import Feed from '../components/Feed';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
+import Widgets from '../components/Widgets';
 import { RootState } from '../store';
 
 const Home = () => {
@@ -16,6 +17,7 @@ const Home = () => {
       <AppBody>
         <Sidebar />
         <Feed />
+        <Widgets />
       </AppBody>
     </>
   );
