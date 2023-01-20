@@ -26,7 +26,7 @@ const Login = () => {
       type: 'user/login',
       payload: {
         displayName: user.displayName,
-        email: user.displayName,
+        email: user.email,
         photoUrl: user.photoURL,
         uid: user.uid,
       },
