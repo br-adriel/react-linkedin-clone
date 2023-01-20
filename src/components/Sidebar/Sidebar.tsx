@@ -1,7 +1,11 @@
 import * as S from './Sidebar.style';
 import { BiHash } from 'react-icons/bi';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
 
 const Sidebar = () => {
+  const user = useSelector((state: RootState) => state.user.user);
+
   return (
     <S.Wrapper>
       <S.SidebarTop>
@@ -10,12 +14,9 @@ const Sidebar = () => {
             src='https://img.freepik.com/free-photo/gradient-dark-blue-futuristic-digital-grid-background_53876-129728.jpg?auto=format&h=200'
             alt=''
           />
-          <S.ProfileImg
-            src='https://www.svgrepo.com/show/404551/avatar-man-profile-user-5.svg'
-            alt=''
-          />
-          <h2>Lorem ipsum</h2>
-          <h4>Lorem ipsum dolor sit amet consectetur</h4>
+          <S.ProfileImg src={user?.photoURL || '#'} alt='' />
+          <h2>{user?.displayName}</h2>
+          <h4>{user?.email}</h4>
         </S.UserProfile>
         <S.SidebarStats>
           <S.SidebarStat>

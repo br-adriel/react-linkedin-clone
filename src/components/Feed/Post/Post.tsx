@@ -8,7 +8,7 @@ type Props = {
   name: string;
   description: string;
   message: string;
-  photoUrl?: string;
+  photoUrl: string;
 };
 
 const Post: React.FC<Props> = ({ description, message, name, photoUrl }) => {
@@ -16,10 +16,7 @@ const Post: React.FC<Props> = ({ description, message, name, photoUrl }) => {
     <S.Wrapper>
       <S.Header>
         <S.Avatar>
-          <img
-            src='https://www.svgrepo.com/show/404551/avatar-man-profile-user-5.svg'
-            alt=''
-          />
+          <img src={photoUrl} alt='' />
         </S.Avatar>
         <S.Info>
           <h2>{name}</h2>

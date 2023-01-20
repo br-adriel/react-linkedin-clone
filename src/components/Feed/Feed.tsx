@@ -6,18 +6,21 @@ import {
   query,
   serverTimestamp,
 } from 'firebase/firestore';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { BsCalendarDate, BsPlayBtnFill } from 'react-icons/bs';
 import { HiPhotograph } from 'react-icons/hi';
 import { RiArrowDownSFill, RiArticleFill } from 'react-icons/ri';
+import { useSelector } from 'react-redux';
 import { PostType } from '../../global/types';
 import { db } from '../../services/firebase';
+import { RootState } from '../../store';
 import * as S from './Feed.style';
 import InputOption from './InputOption';
 import Post from './Post';
 
 const Feed = () => {
   const [posts, setPosts] = useState<PostType[]>([]);
+  const user = useSelector((state: RootState) => state.user.user);
 
   useEffect(() => {
     const postsCollectionRef = collection(db, 'posts');
@@ -36,10 +39,10 @@ const Feed = () => {
 
     const postsCollectionRef = collection(db, 'posts');
     await addDoc(postsCollectionRef, {
-      name: 'Nome Sobrenome',
-      description: 'Isso é um teste',
+      name: user?.displayName,
+      description: user?.email,
       message: e.target['content'].value,
-      photoUrl: '',
+      photoUrl: user!.photoURL,
       timestamp: serverTimestamp(),
     });
 
@@ -51,10 +54,7 @@ const Feed = () => {
       <S.InputContainer>
         <div>
           <a href=''>
-            <img
-              src='https://www.svgrepo.com/show/404551/avatar-man-profile-user-5.svg'
-              alt=''
-            />
+            <img src={user?.photoURL || '#'} alt='' />
           </a>
           <S.Input>
             <form onSubmit={(e) => sendPost(e)}>
