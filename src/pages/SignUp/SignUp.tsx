@@ -1,5 +1,6 @@
 import { FirebaseError } from 'firebase/app';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { Helmet } from 'react-helmet-async';
 import { useSelector } from 'react-redux';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import AuthFooter from '../../components/AuthFooter';
@@ -61,6 +62,9 @@ const SignUp = () => {
   if (user) return <Navigate to='/' />;
   return (
     <S.Wrapper>
+      <Helmet>
+        <title>Cadastre-se | LinkedIn</title>
+      </Helmet>
       <AuthHeader />
       <S.Card>
         <h1>Cadastre-se</h1>
