@@ -1,5 +1,6 @@
 import { onAuthStateChanged, User } from 'firebase/auth';
 import { useEffect } from 'react';
+import { HelmetProvider } from 'react-helmet-async';
 import { useDispatch } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 import GlobalStyle from './components/GlobalStyle';
@@ -24,10 +25,10 @@ function App() {
     });
   }, []);
   return (
-    <>
+    <HelmetProvider>
       <GlobalStyle />
       <Outlet />
-    </>
+    </HelmetProvider>
   );
 }
 
