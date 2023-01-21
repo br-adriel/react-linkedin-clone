@@ -1,3 +1,4 @@
+import { Helmet } from 'react-helmet-async';
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import AppBody from '../components/AppBody';
@@ -13,6 +14,9 @@ const Home = () => {
   if (!user) return <Navigate to='/login' />;
   return (
     <>
+      <Helmet>
+        <title>Feed | LinkedIn</title>
+      </Helmet>
       <Header />
       <AppBody>
         <Sidebar />
